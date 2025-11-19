@@ -33,6 +33,39 @@ Coloca el archivo `audit_commands.py` en uno de los siguientes directorios:
 
 Asegúrate de configurar la variable de entorno para la ubicación local de los logs:
 
-```bash
+
 # Exportar la variable antes de ejecutar el playbook
 export ANSIBLE_LOG_DIR="/ruta/al/log/local/ansible"
+
+C. Ejecución
+
+Simplemente ejecuta tu playbook de forma normal. El plugin se activará automáticamente al inicio de la ejecución.
+
+ansible-playbook -i inventory/prod my_auditoria_playbook.yml
+
+⚙️ Estructura del Log (JSON)
+Cada línea del archivo de log es un objeto JSON que contendrá campos como:
+
+JSON
+
+{
+    "timestamp": "2025-11-19 19:00:00",
+    "host": {"name": "server_db_01"},
+    "groups": ["databases", "prod"],
+    "executor": "adil.ait",
+    "task": {
+        "name": "Aplicar Configuración de NTP",
+        "action": "ansible.builtin.copy",
+        "args": {"src": "ntp.conf", "dest": "/etc/ntp.conf"}
+    },
+    "status": "ok",
+    "changed": true,
+    "output_before": "contenido_antiguo_del_archivo...",
+    "output_after": "contenido_nuevo_del_archivo..."
+}
+🙋‍♂️ Contribuciones y Contacto
+Este proyecto es de código abierto. ¡Las contribuciones son bienvenidas!
+
+Problemas/Bugs: Por favor, abre un [Issue] en este repositorio.
+
+Contacto: Mi Perfil de LinkedIn
